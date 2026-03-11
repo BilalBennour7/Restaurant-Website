@@ -8,9 +8,6 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
 
   <style>
-    /* =============================================
-       RESET & TOKENS
-    ============================================= */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
@@ -44,9 +41,6 @@
     a  { text-decoration: none; color: inherit; }
     ul { list-style: none; }
 
-    /* =============================================
-       UTILITIES
-    ============================================= */
     .container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
     .section-label {
       font-size: .75rem; letter-spacing: .25em; text-transform: uppercase;
@@ -184,9 +178,7 @@
     .feature-card h3 { font-family: var(--ff-head); font-size: 1.25rem; font-weight: 600; margin-bottom: 10px; }
     .feature-card p  { color: var(--muted); font-size: .9rem; line-height: 1.7; }
 
-    /* =============================================
-       CSS-ONLY GALLERY SLIDER (anchor + :target)
-    ============================================= */
+
     #gallery { padding: 80px 0; background: #f3ede5; }
     #gallery .text-center { text-align: center; margin-bottom: 48px; }
 
@@ -223,8 +215,9 @@
       width: 100%;
       height: 480px;
       object-fit: cover;
-      display: block;
+      object-position: center;
     }
+    
 
     /* Caption overlay */
     .slide-caption {
@@ -474,7 +467,7 @@
     .footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding: 20px 0; text-align: center; color: rgba(231,224,214,.3); font-size: .8rem; }
 
     /* =============================================
-       RESPONSIVE
+       For phone use
     ============================================= */
     @media (max-width: 900px) {
       .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
@@ -540,7 +533,7 @@
     <div class="hero-content">
       <p class="hero-label">Authentic Neapolitan Pizza Since 1987</p>
       <h1 class="hero-title">Bella Napoli</h1>
-      <p class="hero-sub">Where every pizza tells a story — handcrafted with the finest ingredients, baked in our traditional wood-fired oven.</p>
+      <p class="hero-sub">Where every pizza tells a story. Handcrafted with the finest ingredients, baked in our traditional wood-fired oven.</p>
       <div class="hero-btns">
         <a href="#menu"    class="btn btn-primary"><i class="fas fa-utensils"></i> View Our Menu</a>
         <a href="#contact" class="btn btn-outline"><i class="fas fa-calendar-alt"></i> Reserve a Table</a>
@@ -573,23 +566,13 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       GALLERY  — pure CSS: anchor href="#slideN" + :target
-  ============================================================ -->
+  
   <section id="gallery">
     <div class="container">
       <div class="text-center">
         <p class="section-label">Our Gallery</p>
         <h2 class="section-title">A Feast for the Eyes</h2>
       </div>
-
-      <!--
-        HOW IT WORKS (no JS):
-        • Each slide div has a unique id (slide-1 … slide-6).
-        • Prev/Next links use href="#slideN" to jump to a sibling.
-        • CSS :target { display:block } shows the targeted slide.
-        • CSS :has() hides the default first slide once another is targeted.
-      -->
 
       <div class="gallery-slider">
 
@@ -634,7 +617,7 @@
 
         <!-- SLIDE 4 -->
         <div class="slide" id="slide-4">
-          <img src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=1200&q=80" alt="Caprese Salad"/>
+          <img src="https://images.unsplash.com/photo-1595587870672-c79b47875c6a?q=80&w=1800&auto=format&fit=crop" alt="Caprese Salad"/>
           <div class="slide-caption">
             <h3>Fresh Caprese Salad</h3>
             <p>4 / 6</p>
@@ -647,7 +630,7 @@
 
         <!-- SLIDE 5 -->
         <div class="slide" id="slide-5">
-          <img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=1200&q=80" alt="Tiramisu"/>
+          <img src="https://staticcookist.akamaized.net/wp-content/uploads/sites/22/2024/09/THUMB-VIDEO-2_rev1-56.jpeg" alt="Tiramisu"/>
           <div class="slide-caption">
             <h3>Homemade Tiramisu</h3>
             <p>5 / 6</p>
@@ -724,7 +707,7 @@
               <div class="item-name-row">
                 <span class="item-name">Margherita</span>
                 <span class="badge badge-popular">Popular</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">San Marzano tomato sauce, fresh mozzarella, basil, extra virgin olive oil</p>
             </div>
@@ -744,7 +727,7 @@
             <div class="item-info">
               <div class="item-name-row">
                 <span class="item-name">Quattro Formaggi</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">Mozzarella, gorgonzola, parmesan, fontina cheese blend</p>
             </div>
@@ -754,7 +737,7 @@
             <div class="item-info">
               <div class="item-name-row">
                 <span class="item-name">Marinara</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">San Marzano tomatoes, garlic, oregano, extra virgin olive oil — no cheese</p>
             </div>
@@ -776,7 +759,7 @@
               <div class="item-name-row">
                 <span class="item-name">Truffle Mushroom</span>
                 <span class="badge badge-popular">Popular</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">Wild mushroom medley, truffle cream, mozzarella, arugula, shaved parmesan</p>
             </div>
@@ -807,7 +790,7 @@
             <div class="item-info">
               <div class="item-name-row">
                 <span class="item-name">Mediterranean</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">Sun-dried tomatoes, olives, feta, artichokes, roasted peppers, pesto drizzle</p>
             </div>
@@ -828,7 +811,7 @@
             <div class="item-info">
               <div class="item-name-row">
                 <span class="item-name">Caprese Salad</span>
-                <span class="badge badge-veg">V</span>
+                <span class="badge badge-veg">Vegetarian</span>
               </div>
               <p class="item-desc">Fresh buffalo mozzarella, vine tomatoes, basil, balsamic reduction</p>
             </div>
@@ -914,8 +897,8 @@
         <div class="about-text">
           <h2>From Naples to New York</h2>
           <p>In 1987, Nonna Maria Rossi brought her family's treasured pizza recipes from the heart of Naples to the streets of New York City. What began as a tiny storefront with a single wood-fired oven quickly became a beloved neighborhood gem.</p>
-          <p>Today, her grandson Marco carries on the tradition, hand-stretching every dough, sourcing the finest San Marzano tomatoes and fresh mozzarella, and firing each pizza in our original brick oven at 900°F — just as Nonna taught him.</p>
-          <p>At Bella Napoli, great pizza is more than food — it's a gathering place, a celebration of community, and a taste of la dolce vita right here in the city.</p>
+          <p>Today, her grandson Marco carries on the tradition, hand-stretching every dough, sourcing the finest San Marzano tomatoes and fresh mozzarella, and firing each pizza in our original brick oven at 900°F, just as Nonna taught him.</p>
+          <p>At Bella Napoli, great pizza is more than food; it's a gathering place, a celebration of community, and a taste of la dolce vita right here in the city.</p>
         </div>
       </div>
 
@@ -933,7 +916,7 @@
         <div class="value-card">
           <div class="value-num">3</div>
           <h3>Community First</h3>
-          <p>We're not just a restaurant — we're a family. From charity events to sponsoring local sports teams, giving back is in our DNA.</p>
+          <p>We're not just a restaurant, we're a family. From charity events to sponsoring local sports teams, giving back is in our DNA.</p>
         </div>
       </div>
 
@@ -1005,9 +988,10 @@
 
         <div class="map-wrap">
           <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=-74.0030%2C40.7155%2C-73.9940%2C40.7225&layer=mapnik&marker=40.7195%2C-73.9973"
+            src="https://www.openstreetmap.org/export/embed.html?bbox=-73.9995%2C40.7178%2C-73.9955%2C40.7215&layer=mapnik&marker=40.7195%2C-73.9973"
+            style="width:100%; height:480px; border:0;"
             allowfullscreen
-            title="Bella Napoli location">
+            loading="lazy">
           </iframe>
         </div>
       </div>
@@ -1067,6 +1051,3 @@
 
 </body>
 </html>
-
-
-  
