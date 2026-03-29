@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Bella Napoli – Pizzeria & Trattoria</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="style.css"/>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <script src="https://kit.fontawesome.com/54e0159a6c.js" crossorigin="anonymous"></script>
+  <script src="cart.js" async></script>
 
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -307,7 +310,7 @@
     .gallery-slider:has(#slide-6:target) ~ .gallery-thumbs a[href="#slide-6"] {
       opacity: 1; border-color: var(--primary);
     }
-
+    
     /* =============================================
        MENU
     ============================================= */
@@ -487,10 +490,11 @@
 </head>
 
 <body>
-
   <!-- ============================================================
        NAVIGATION  (CSS-only hamburger via checkbox)
   ============================================================ -->
+
+
   <nav id="navbar">
     <div class="container nav-inner">
 
@@ -507,7 +511,16 @@
         <li><a href="#menu">Menu</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#contact">Contact</a></li>
+
       </ul>
+      <div class="cart"> 
+        <a href="cart.html">
+          <i class="fa-solid fa-cart-arrow-down fa-2xl"></i>
+          <span class="dot">0</span>
+        </a>
+      </div>
+  
+      
 
       <!-- CSS-only hamburger: hidden checkbox toggles mobile menu -->
       <input type="checkbox" id="nav-toggle"/>
@@ -674,8 +687,6 @@
         <a href="#slide-4"><img src="https://images.unsplash.com/photo-1529543544282-ea669407fca3?w=200&q=60" alt="Thumb 4"/></a>
         <a href="#slide-5"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=200&q=60" alt="Thumb 5"/></a>
         <a href="#slide-6"><img src="https://images.unsplash.com/photo-1534308983496-4fabb1a015ee?w=200&q=60" alt="Thumb 6"/></a>
-      </div>
-
     </div>
   </section>
 
@@ -708,6 +719,7 @@
                 <span class="item-name">Margherita</span>
                 <span class="badge badge-popular">Popular</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">San Marzano tomato sauce, fresh mozzarella, basil, extra virgin olive oil</p>
             </div>
@@ -718,6 +730,7 @@
               <div class="item-name-row">
                 <span class="item-name">Pepperoni</span>
                 <span class="badge badge-popular">Popular</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Tomato sauce, mozzarella, spicy pepperoni, oregano</p>
             </div>
@@ -728,6 +741,7 @@
               <div class="item-name-row">
                 <span class="item-name">Quattro Formaggi</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Mozzarella, gorgonzola, parmesan, fontina cheese blend</p>
             </div>
@@ -738,6 +752,7 @@
               <div class="item-name-row">
                 <span class="item-name">Marinara</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">San Marzano tomatoes, garlic, oregano, extra virgin olive oil — no cheese</p>
             </div>
@@ -745,7 +760,10 @@
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Capricciosa</span></div>
+              <div class="item-name-row"><span class="item-name">Capricciosa</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
+              
               <p class="item-desc">Tomato, mozzarella, ham, mushrooms, artichokes, olives</p>
             </div>
             <span class="item-price">$18</span>
@@ -760,6 +778,7 @@
                 <span class="item-name">Truffle Mushroom</span>
                 <span class="badge badge-popular">Popular</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Wild mushroom medley, truffle cream, mozzarella, arugula, shaved parmesan</p>
             </div>
@@ -767,21 +786,27 @@
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Prosciutto e Rucola</span></div>
+              <div class="item-name-row"><span class="item-name">Prosciutto e Rucola</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Tomato, mozzarella, Prosciutto di Parma, arugula, parmesan shavings</p>
             </div>
             <span class="item-price">$20</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Diavola</span></div>
+              <div class="item-name-row"><span class="item-name">Diavola</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Spicy salami, roasted peppers, tomato sauce, mozzarella, chili flakes</p>
             </div>
             <span class="item-price">$18</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">BBQ Chicken</span></div>
+              <div class="item-name-row"><span class="item-name">BBQ Chicken</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Grilled chicken, BBQ sauce, red onion, cilantro, smoked gouda</p>
             </div>
             <span class="item-price">$19</span>
@@ -791,6 +816,7 @@
               <div class="item-name-row">
                 <span class="item-name">Mediterranean</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Sun-dried tomatoes, olives, feta, artichokes, roasted peppers, pesto drizzle</p>
             </div>
@@ -802,7 +828,9 @@
         <div class="menu-panel" id="tab-starters">
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Bruschetta Trio</span></div>
+              <div class="item-name-row"><span class="item-name">Bruschetta Trio</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Classic tomato-basil, mushroom truffle, and ricotta-honey on toasted ciabatta</p>
             </div>
             <span class="item-price">$12</span>
@@ -812,6 +840,7 @@
               <div class="item-name-row">
                 <span class="item-name">Caprese Salad</span>
                 <span class="badge badge-veg">Vegetarian</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Fresh buffalo mozzarella, vine tomatoes, basil, balsamic reduction</p>
             </div>
@@ -819,14 +848,18 @@
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Arancini</span></div>
+              <div class="item-name-row"><span class="item-name">Arancini</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Crispy risotto balls filled with mozzarella, served with marinara</p>
             </div>
             <span class="item-price">$11</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Caesar Salad</span></div>
+              <div class="item-name-row"><span class="item-name">Caesar Salad</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Romaine hearts, house-made caesar dressing, croutons, parmesan</p>
             </div>
             <span class="item-price">$11</span>
@@ -840,6 +873,7 @@
               <div class="item-name-row">
                 <span class="item-name">Tiramisu</span>
                 <span class="badge badge-popular">Popular</span>
+                <button class="add-to-cart">Add to cart</button>
               </div>
               <p class="item-desc">Classic espresso-soaked ladyfingers with mascarpone cream</p>
             </div>
@@ -847,28 +881,36 @@
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Panna Cotta</span></div>
+              <div class="item-name-row"><span class="item-name">Panna Cotta</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Vanilla bean panna cotta with seasonal berry compote</p>
             </div>
             <span class="item-price">$9</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Cannoli</span></div>
+              <div class="item-name-row"><span class="item-name">Cannoli</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Crispy shell filled with sweet ricotta, chocolate chips, pistachios</p>
             </div>
             <span class="item-price">$8</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Italian Soda</span></div>
+              <div class="item-name-row"><span class="item-name">Italian Soda</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Sparkling water with your choice of house-made fruit syrup</p>
             </div>
             <span class="item-price">$5</span>
           </div>
           <div class="menu-item">
             <div class="item-info">
-              <div class="item-name-row"><span class="item-name">Espresso</span></div>
+              <div class="item-name-row"><span class="item-name">Espresso</span>
+              <button class="add-to-cart">Add to cart</button>
+              </div>
               <p class="item-desc">Double shot of our house blend, imported from Naples</p>
             </div>
             <span class="item-price">$4</span>
@@ -877,6 +919,7 @@
           <div class="item-info">
             <div class="item-name-row">
               <span class="item-name">Bottled Water</span>
+              <button class="add-to-cart">Add to cart</button>
             </div>
             <p class="item-desc">Chilled bottled spring water</p>
           </div>
@@ -1003,6 +1046,16 @@
           </iframe>
         </div>
       </div>
+      <div class="cartTab">
+        <h1>Shopping Cart</h1>
+        <div class="listCart">
+
+        </div>
+        <div class="cart-btn">
+          <button class="clear">Clear All Items</button>
+          <button class="Checkout">Check Out</button>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -1056,6 +1109,7 @@
       <div class="container">© 2026 Bella Napoli Pizzeria &amp; Trattoria. All rights reserved.</div>
     </div>
   </footer>
+
 
 </body>
 </html>

@@ -1,0 +1,81 @@
+.fa-solid.fa-cart-arrow-down.fa-2xl{
+    color: rgb(146, 43, 33);
+}
+
+.add-to-cart{
+  position: relative;
+  display: inline-block;
+  padding: 10px 12px;
+  border: none;
+  font-size: 12px;
+  background-color: #b03a2e;
+  border-radius: 100px;
+  font-weight: 600;
+  color: white;
+  box-shadow: 0 0 0 2px #ffffff20;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+    
+}
+
+.add-to-cart:hover {
+  box-shadow: 0 0 0 5px #2195f360;
+  background-color: grey;
+  color: white
+}
+
+.dot {
+  position: absolute;
+  top: 5px;
+  right:10px;
+  width: 25px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  color:white;
+  text-align: center;
+  
+}
+
+@media all and (max-width:640px){
+    .dot{
+        position: relative;
+        top:-15px;
+        right: 20px;
+        width: 25px;
+        background-color: red;
+        border-radius: 50%;
+        display: inline-block;
+        color:white;
+        text-align: center;
+    }
+}
+
+.cartTab{
+    width:400px;
+    background-color:blue;
+    color: white;
+    position: fixed;
+    top:0;
+    right:0;
+    bottom:0;
+    inset:0 0 0 auto;
+    z-index: 2001;
+    display:grid;
+    grid-template-rows: 70px 1fr 70px;
+
+
+}
+.cartTab h1{
+    padding: 20px;
+    margin: 0;
+    font-weight:300;
+
+}
+
+.cartTab .cart-btn{
+    display:grid;
+    grid-template-rows: ;
+}
+
