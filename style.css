@@ -2,6 +2,13 @@
     color: rgb(146, 43, 33);
 }
 
+.fa-solid.fa-x{
+    color: black;
+    position: absolute;
+    top: 15px;
+    right: 16px;
+}
+
 .add-to-cart{
   position: relative;
   display: inline-block;
@@ -52,30 +59,109 @@
     }
 }
 
+.cartOverlay{
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.45); 
+  transition: opacity .25s ease, visibility .25s ease;
+  z-index: 2000;
+
+}
+
+
 .cartTab{
     width:400px;
-    background-color:blue;
-    color: white;
+    background-color:white;
+    color: black;
     position: fixed;
     top:0;
     right:0;
     bottom:0;
     inset:0 0 0 auto;
     z-index: 2001;
+    padding: 40px;
     display:grid;
-    grid-template-rows: 70px 1fr 70px;
-
-
+    grid-template-rows: auto 1fr auto auto;
+    border:1px solid black;
+    border-top-left-radius: 10%;
+    box-shadow:-5px 0 80px rgb(255,255,255, 0.65);
+    overflow-y: auto;
+    overscroll-behavior: contain;
 }
+
 .cartTab h1{
     padding: 20px;
     margin: 0;
     font-weight:300;
+    font-weight: bold;
+    text-align: center;
 
 }
+.empty-message{
+    margin:0;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 500;
+    text-align: center;
+    align-self: center;
+    display: block;
+    font-size:20px;
+    font: weight 500px;
+}
+
+ 
 
 .cartTab .cart-btn{
     display:grid;
-    grid-template-rows: ;
+    grid-template-columns: repeat(2,1fr);
+    width:100% 80px ;
+    margin: 0 -40px -40px;
 }
+.cartTab .cart-btn button{
+    border:none;
+    font-family: Poppins;
+}
+
+.cartTab .cart-btn .clear{
+    background-color: white;
+    font-family: Poppins;
+    font-weight: 500px;
+    cursor: pointer;
+    color: black;
+}
+
+.cartTab .cart-btn .Checkout{
+    background: linear-gradient(135deg, #b03a2e, #922b21);
+    color:white;
+    font-family: Poppins;
+    font-weight: 500px;
+    cursor: pointer;
+    
+}
+
+.cartTab .cart-btn .Checkout:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 10px 18px rgba(0,0,0,.2);
+    filter: brightness(1.06);
+    
+}
+
+.cartTab .cart-btn .clear:hover{
+    
+   box-shadow: 0 0 0 5px #2195f360;
+   background-color: red;
+   color: white
+    
+}
+
+.total{
+    text-align: right;
+    margin-top: -35px;
+    font-size: large;
+    font-weight: bold;
+    color:black
+
+}
+
+
+
 
