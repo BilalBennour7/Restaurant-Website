@@ -1046,20 +1046,39 @@
           </iframe>
         </div>
       </div>
+
       <div class="cartOverlay"></div>
+
       <div class="cartTab">
-        <h1>Shopping Cart</h1>
+        <h1 class="title">Shopping Cart</h1>
+        <div class="cart-content">
+          <div class="cart-box">
+            <div class="cart-detail">
+              <h2 class="cart-product-title">chesse pizza</h2>
+              <span class="cart-price">$15</span>
+              <div class="cart-quanity">
+                <button id="decerment">-</button>
+                <span class="number">1</span>
+                <button id="increment">+</button>
+              </div>
+            </div>
+            <i class="fa-regular fa-trash-can cart-remove"></i>
+          </div>
+        </div>
 
         <p class="empty-message">You currently have no item in cart</p>
         <p class="total">Total: <span>0.00</span></p>
 
         <div class="listCart">
         </div>
+
         <div class="cart-btn">
           <button class="clear">Clear All Items</button>
           <button class="Checkout">Check Out</button>
         </div>
-        <i class="fa-solid fa-x"></i>
+        <button class="x-btn"> 
+          <i class="fa-solid fa-x"></i>
+        </button>
       </div>
     </div>
   </section>
