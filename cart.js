@@ -52,11 +52,14 @@ const Addtocart = Menuitem => {
             <i class="fa-regular fa-trash-can cart-remove"></i>
     `;
     cartContent.appendChild(Cartbox);
+    updateEmptyMessage();
 
     Cartbox.querySelector(".cart-remove").addEventListener("click", () => { 
         Cartbox.remove();
+        updateEmptyMessage();
         UpdateTotalPrice();
         updateCartCount(-1);
+        
     });
 
     Cartbox.querySelector(".cart-quanity").addEventListener("click", event => { 
@@ -64,7 +67,7 @@ const Addtocart = Menuitem => {
         const Minusbutton=Cartbox.querySelector("#decerment");
         let quantity=numberElement.textContent;
 
-        if(event.target.id==="decerment"&& quantity>1){
+        if(event.target.id==="decerment"&& quantity>0){
             quantity--;
 
             if(quantity===1){
@@ -75,6 +78,13 @@ const Addtocart = Menuitem => {
                 quantity++;
                 Minusbutton.style.color="#333";
             }
+        if (quantity === 0) {
+            Cartbox.remove();
+            updateCartCount(-1);
+            UpdateTotalPrice();
+            updateEmptyMessage();
+            return;
+        }
 
         numberElement.textContent=quantity;
         UpdateTotalPrice();
@@ -121,8 +131,8 @@ Checkoutbutton.addEventListener("click", () =>{
         alert("Your cart is empty. Please add items before checking out");
         return;
     }
-
     cartboxes.forEach(CartBox=> CartBox.remove());
+    updateEmptyMessage();
 
     CartItemCount=0;
     updateCartCount(0);
@@ -135,7 +145,20 @@ Checkoutbutton.addEventListener("click", () =>{
 const Clearallitems=document.querySelector(".clear");
 Clearallitems.addEventListener("click", () =>{
   cartContent.innerHTML = "";
+  updateEmptyMessage();
   CartItemCount = 0;
   updateCartCount(0);
   UpdateTotalPrice();
 });
+
+const emptyMessage = document.querySelector(".empty-message");
+
+function updateEmptyMessage() {
+  if (cartContent.querySelectorAll(".cart-box").length === 0) {
+    emptyMessage.style.display = "block";
+  } 
+  else {
+    emptyMessage.style.display = "none";
+  }
+}
+updateEmptyMessage();
