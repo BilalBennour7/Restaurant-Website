@@ -157,8 +157,11 @@ function updateEmptyMessage() {
   if (cartContent.querySelectorAll(".cart-box").length === 0) {
     emptyMessage.style.display = "block";
   } 
+
   else {
     emptyMessage.style.display = "none";
   }
+  
 }
+
 updateEmptyMessage();
