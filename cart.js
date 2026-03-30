@@ -21,11 +21,21 @@ Addcartbuttons.forEach(button => {
     });
 });
 
-const cartContent= document.querySelector(".listCart")
+const cartContent= document.querySelector(".listCart");
+
 const Addtocart = Menuitem => {
     const Itemname=Menuitem.querySelector(".item-name").textContent;
     const ProductPrice=Menuitem.querySelector(".item-price").textContent;
 
+    const CartItems=cartContent.querySelectorAll(".cart-product-title")
+
+    for(let item of CartItems){
+        if(item.textContent===Itemname){
+            alert("This item has already been selcted!");
+            return;
+        }
+    }
+    
     const Cartbox=document.createElement("div");
 
     Cartbox.classList.add("cart-box");
@@ -42,4 +52,47 @@ const Addtocart = Menuitem => {
             <i class="fa-regular fa-trash-can cart-remove"></i>
     `;
     cartContent.appendChild(Cartbox);
+
+    Cartbox.querySelector(".cart-remove").addEventListener("click", () => { 
+        Cartbox.remove();
+        UpdateTotalPrice();
+    });
+
+    Cartbox.querySelector(".cart-quanity").addEventListener("click", event => { 
+        const numberElement=Cartbox.querySelector(".number");
+        const Minusbutton=Cartbox.querySelector("#decerment");
+        let quantity=numberElement.textContent;
+
+        if(event.target.id==="decerment"&& quantity>1){
+            quantity--;
+
+            if(quantity===1){
+                Minusbutton.style.color="#999";
+            }
+        }
+        else if(event.target.id==="increment"){
+                quantity++;
+                Minusbutton.style.color="#333";
+            }
+
+        numberElement.textContent=quantity;
+        UpdateTotalPrice();
+    });
+    UpdateTotalPrice();
+};
+
+const UpdateTotalPrice= ()=>{
+    const TotalPrice=document.querySelector(".total span");
+    const CartBoxes=cartContent.querySelectorAll(".cart-box");
+
+    let total=0;
+    CartBoxes.forEach(Cartbox=> {
+        const priceElement=Cartbox.querySelector(".cart-price");
+        const quantiyElement=Cartbox.querySelector(".number");
+        const price= priceElement.textContent.replace("$", "");
+        const quantity=quantiyElement.textContent;
+        total+=price*quantity;
+
+    });
+    TotalPrice.textContent=`$${total}`;
 };
