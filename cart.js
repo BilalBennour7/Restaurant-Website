@@ -27,11 +27,20 @@ const Addtocart = Menuitem => {
     const Itemname=Menuitem.querySelector(".item-name").textContent;
     const ProductPrice=Menuitem.querySelector(".item-price").textContent;
 
-    const CartItems=cartContent.querySelectorAll(".cart-product-title")
+    const CartItems=cartContent.querySelectorAll(".cart-product-title");
 
     for(let item of CartItems){
         if(item.textContent===Itemname){
-            alert("This item has already been selcted!");
+            const Cartbox=item.closest(".cart-box");
+            const numberElement=Cartbox.querySelector(".number");
+            const Minusbutton=Cartbox.querySelector("#decerment");
+            let quantity=parseInt(numberElement.textContent);
+
+            quantity++;
+            numberElement.textContent=quantity;
+            Minusbutton.style.color="#333";
+            UpdateTotalPrice();
+            updateCartCount(1);
             return;
         }
     }
@@ -55,10 +64,11 @@ const Addtocart = Menuitem => {
     updateEmptyMessage();
 
     Cartbox.querySelector(".cart-remove").addEventListener("click", () => { 
+        const quantity=parseInt(Cartbox.querySelector(".number").textContent);
         Cartbox.remove();
         updateEmptyMessage();
         UpdateTotalPrice();
-        updateCartCount(-1);
+        updateCartCount(-quantity);
         
     });
 
@@ -161,7 +171,8 @@ function updateEmptyMessage() {
   else {
     emptyMessage.style.display = "none";
   }
-  
+
 }
 
 updateEmptyMessage();
+

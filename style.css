@@ -176,7 +176,9 @@
     border-left: 1px solid #999;
     border-right: 1px solid #999;
     cursor: default;
+    color:rgba(0, 135, 239, 0.87)
 }
+
 
 .cart-remove{
     font-size:25px;
@@ -251,15 +253,16 @@
     box-shadow: 0 10px 18px rgba(0,0,0,.2);
     filter: brightness(1.06);
     color:black;
+    background: rgb(82, 221, 82);
     
 }
 
 .cartTab .cart-btn .clear:hover{
-    
+   
    box-shadow: 0 0 0 5px #2195f360;
-   background-color: rgb(95, 47, 47);
+   background-color: red;
    color: white
-    
+   
 }
 
 .total{
