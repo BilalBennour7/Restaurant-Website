@@ -1,31 +1,94 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { features, galleryItems, menuCategories, menuItems, navLinks } from "./data";
+import { clearSavedCart, createOrder, getCart, getMenuItems, saveCart } from "./api";
+import { features, galleryItems, menuCategories, navLinks } from "./data";
 
-const CART_STORAGE_KEY = "bella-napoli-cart";
+const CART_SESSION_KEY = "bella-napoli-cart-session";
 
-function getStoredCartItems() {
-  const storedCart = localStorage.getItem(CART_STORAGE_KEY);
+function getCartSessionId() {
+  const storedSessionId = localStorage.getItem(CART_SESSION_KEY);
 
-  if (!storedCart) {
-    return [];
+  if (storedSessionId) {
+    return storedSessionId;
   }
 
-  try {
-    return JSON.parse(storedCart);
-  } catch {
-    return [];
-  }
+  const sessionId = crypto.randomUUID();
+  localStorage.setItem(CART_SESSION_KEY, sessionId);
+  return sessionId;
 }
 
 function App() {
   const [activeCategory, setActiveCategory] = useState(menuCategories[0].id);
   const [activeSlide, setActiveSlide] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState(getStoredCartItems);
+  const [cartItems, setCartItems] = useState([]);
+  const [menuItems, setMenuItems] = useState([]);
+  const [cartSessionId] = useState(getCartSessionId);
+  const [hasLoadedCart, setHasLoadedCart] = useState(false);
+  const [isMenuLoading, setIsMenuLoading] = useState(true);
+  const [isCheckingOut, setIsCheckingOut] = useState(false);
+  const [apiError, setApiError] = useState("");
 
   useEffect(() => {
-    localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(cartItems));
-  }, [cartItems]);
+    let isMounted = true;
+
+    getMenuItems()
+      .then((items) => {
+        if (isMounted) {
+          setMenuItems(items);
+          setApiError("");
+        }
+      })
+      .catch((error) => {
+        if (isMounted) {
+          setApiError(`Menu could not be loaded: ${error.message}`);
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setIsMenuLoading(false);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    getCart(cartSessionId)
+      .then((cart) => {
+        if (isMounted) {
+          setCartItems(cart.items || []);
+          setApiError("");
+        }
+      })
+      .catch((error) => {
+        if (isMounted) {
+          setApiError(`Cart could not be loaded: ${error.message}`);
+        }
+      })
+      .finally(() => {
+        if (isMounted) {
+          setHasLoadedCart(true);
+        }
+      });
+
+    return () => {
+      isMounted = false;
+    };
+  }, [cartSessionId]);
+
+  useEffect(() => {
+    if (!hasLoadedCart) {
+      return;
+    }
+
+    saveCart(cartSessionId, cartItems).catch((error) => {
+      setApiError(`Cart update could not be saved: ${error.message}`);
+    });
+  }, [cartItems, cartSessionId, hasLoadedCart]);
 
   const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
   const cartTotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
@@ -75,15 +138,25 @@ function App() {
     setCartItems([]);
   };
 
-  const checkout = () => {
+  const checkout = async () => {
     if (cartItems.length === 0) {
       alert("Your cart is empty. Please add items before checking out.");
       return;
     }
 
-    setCartItems([]);
-    setIsCartOpen(false);
-    alert("Thank you for your purchase!");
+    try {
+      setIsCheckingOut(true);
+      await createOrder(cartItems);
+      await clearSavedCart(cartSessionId);
+      setCartItems([]);
+      setIsCartOpen(false);
+      setApiError("");
+      alert("Thank you for your purchase! Your order was saved.");
+    } catch (error) {
+      setApiError(`Order could not be placed: ${error.message}`);
+    } finally {
+      setIsCheckingOut(false);
+    }
   };
 
   const nextSlide = () => {
@@ -117,6 +190,8 @@ function App() {
         <Menu
           activeCategory={activeCategory}
           activeCategoryLabel={activeCategoryLabel}
+          apiError={apiError}
+          isMenuLoading={isMenuLoading}
           visibleMenuItems={visibleMenuItems}
           onCategoryChange={setActiveCategory}
           onAddToCart={addToCart}
@@ -134,6 +209,7 @@ function App() {
         onCheckout={checkout}
         onDecreaseQuantity={decreaseQuantity}
         onIncreaseQuantity={increaseQuantity}
+        isCheckingOut={isCheckingOut}
         onRemoveItem={removeItem}
       />
     </>
@@ -300,6 +376,8 @@ function Gallery({ activeGalleryItem, activeSlide, onPrevious, onNext, onSelectS
 function Menu({
   activeCategory,
   activeCategoryLabel,
+  apiError,
+  isMenuLoading,
   visibleMenuItems,
   onCategoryChange,
   onAddToCart,
@@ -329,12 +407,17 @@ function Menu({
         </div>
 
         <div className="menu-list mx-auto" aria-label={activeCategoryLabel}>
+          {apiError && <div className="alert alert-danger">{apiError}</div>}
+          {isMenuLoading && <div className="alert alert-light">Loading menu from database...</div>}
+          {!isMenuLoading && visibleMenuItems.length === 0 && !apiError && (
+            <div className="alert alert-light">No menu items found for this category.</div>
+          )}
           {visibleMenuItems.map((item) => (
             <article className="menu-item" key={item.id}>
               <div>
                 <div className="d-flex align-items-center flex-wrap gap-2 mb-2">
                   <h3 className="mb-0">{item.name}</h3>
-                  {item.badges.map((badge) => (
+                  {(item.badges || []).map((badge) => (
                     <span
                       className={`badge rounded-pill ${
                         badge === "Vegetarian" ? "text-bg-success" : "text-bg-warning"
@@ -560,6 +643,7 @@ function CartDrawer({
   onCheckout,
   onDecreaseQuantity,
   onIncreaseQuantity,
+  isCheckingOut,
   onRemoveItem,
 }) {
   return (
@@ -617,7 +701,7 @@ function CartDrawer({
             </div>
             <div className="col-6">
               <button className="btn btn-brand w-100" type="button" onClick={onCheckout}>
-                Checkout
+                {isCheckingOut ? "Saving..." : "Checkout"}
               </button>
             </div>
           </div>
